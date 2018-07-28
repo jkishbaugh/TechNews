@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/list_item_height"
+        android:layout_margin="@dimen/standard_margin">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="@dimen/image_width"
+            android:layout_height="@dimen/image_height"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginBottom="0dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/title"
+            android:layout_below="@id/image"
+            android:textStyle="bold"
+            android:textSize="@dimen/title_text_size"
+            android:layout_marginTop="@dimen/inner_margin"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/summary"
+            android:layout_below="@id/title"
+            android:textSize="@dimen/text_size"
+            android:layout_marginTop="@dimen/inner_margin"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/author"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/text_size"
+            android:layout_below="@id/summary"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/inner_margin"
+            android:layout_marginEnd="@dimen/standard_margin" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/date_published"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@id/author"
+            android:textSize="@dimen/text_size"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_marginBottom="@dimen/standard_margin"/>
+
+    </RelativeLayout>
+
+    
+

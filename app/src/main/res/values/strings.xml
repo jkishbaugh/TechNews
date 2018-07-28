@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TechNews</string>
+    <string name="no_articles">No articles to display.</string>
+</resources>
