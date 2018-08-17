@@ -58,18 +58,11 @@ public class ArticleAdapter extends ArrayAdapter {
 
         TextView byline = listItemView.findViewById(R.id.author);
         byline.setText(stringFormatter(currentArticle.getByline()));
-        Log.v(LOG_TAG, currentArticle.getByline());
-
 
         TextView datePublished = listItemView.findViewById(R.id.date_published);
         String currentPublishedDate = currentArticle.getPubishedDate();
         String date = getFormattedDate("yyyy-MM-dd'T'HH:mm:ss'Z'","MMMM dd, yyyy",currentPublishedDate);
         datePublished.setText(date);
-
-        Log.d(LOG_TAG,"why won't it change "
-                + date);
-
-
 
         return listItemView;
     }

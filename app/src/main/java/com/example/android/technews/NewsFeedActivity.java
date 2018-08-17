@@ -5,11 +5,16 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -24,12 +29,31 @@ import java.util.List;
 
 public class NewsFeedActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Article>> {
     public static final String LOG_TAG = NewsFeedActivity.class.getName();
-    private static final String REQUEST_URL = "https://content.guardianapis.com/search?order-by=newest&show-elements=image&show-fields=all&page-size=15&q=science%20and%20technology&api-key=43ea601e-62ba-4380-afa6-3b73b3691d5e";
+    private static final String REQUEST_URL = "https://content.guardianapis.com/search";
+    //order-by=newest&show-elements=image&show-fields=all&page-size=15&q=science%20and%20technology&api-key=
     private ArticleAdapter mAdapter;
+    private static final String KEY = "43ea601e-62ba-4380-afa6-3b73b3691d5e";
     private static final int ARTICLE_LOADER_ID = 1;
     public TextView emptyView;
     public ProgressBar spinner;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_settings){
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +98,31 @@ public class NewsFeedActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     public Loader<List<Article>> onCreateLoader(int id, Bundle args) {
-        return new ArticleLoader(this, REQUEST_URL);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String searchString = sharedPrefs.getString(getString(R.string.settings_search_key),getString
+                (R.string.settings_search_default));
+        String orderBy  = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default)
+        );
+        String sizeLimit = sharedPrefs.getString(
+                getString(R.string.settings_size_key),
+                getString(R.string.settings_search_default));
+
+        Uri baseUri = Uri.parse(REQUEST_URL);
+
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("q", searchString.toLowerCase());
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+        uriBuilder.appendQueryParameter("page-size", sizeLimit);
+        uriBuilder.appendQueryParameter("show-elements","image");
+        uriBuilder.appendQueryParameter("show-fields", "all");
+        uriBuilder.appendQueryParameter("api-key", KEY);
+
+        return new ArticleLoader(this, uriBuilder.toString());
     }
 
     @Override

@@ -18,6 +18,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 public class QueryUtils {
     //tag for error reporting
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
@@ -83,11 +85,11 @@ public class QueryUtils {
 
     private static String makeHttpRequest(URL url) throws IOException{
         String jsonResponse= "";
-        HttpURLConnection urlConnection = null;
+        HttpsURLConnection urlConnection = null;
         InputStream inputStream = null;
 
         try{
-            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection = (HttpsURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000);
             urlConnection.setRequestMethod("GET");
             urlConnection.setConnectTimeout(150000);
